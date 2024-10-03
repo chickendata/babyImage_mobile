@@ -1,37 +1,74 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import React from "react";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Register from "./register";
+import LogIn from "./logIn";
+import StartBaby from "./startBaby";
+import HelpComp from "./help";
+import Header from "@/components/Header";
+import BabyGenerator from "./babyGenerator";
+import StartApp from "./startApp";
+import TryGenerator from "./trygenerator";
+import AppPurchase from "./appPurchase";
+import Paypal from "./paypal";
+
+const Stack = createNativeStackNavigator();
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  console.log(colorScheme);
 
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+    <NavigationContainer independent={true}>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="startApp"
+          component={StartApp}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="trygenerator"
+          component={TryGenerator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="appPurchase"
+          component={AppPurchase}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="paypal"
+          component={Paypal}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="logIn"
+          component={LogIn}
+          options={{ headerShown: false, header: () => <Header /> }}
+        />
+        <Stack.Screen
+          name="register"
+          component={Register}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="startBaby"
+          component={StartBaby}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="help"
+          component={HelpComp}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="babyGenerator"
+          component={BabyGenerator}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
